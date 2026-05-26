@@ -1,145 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 5 · Numbers up to 1000</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0A1628;--blue:#1E5FCC;--gold:#F5C518;--silver:#B0C4DE;--cream:#F0F4FF;--sky:#E8F4FF}
-html,body{width:100%;min-height:100vh}
-body{font-family:'Nunito',sans-serif;background:linear-gradient(180deg,#0A1628 0%,#1E3A6E 40%,#2D6A9E 70%,#4A9CC8 100%);min-height:100vh;padding:0 0 32px;display:flex;flex-direction:column;align-items:center;}
-/* Stars in header */
-.star-header{width:100%;background:linear-gradient(180deg,#020818,#0A1628);padding:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between}
-.star{position:absolute;border-radius:50%;background:#fff;}
-.sh-title{font-family:'Fredoka One',cursive;font-size:26px;color:var(--gold);z-index:1;text-shadow:0 0 20px rgba(245,197,24,.5)}
-.sh-chip{background:var(--gold);color:#3A2A00;font-size:12px;font-weight:900;padding:5px 14px;border-radius:20px;z-index:1;border:2px solid rgba(0,0,0,.1)}
-.page{width:100%;max-width:700px;padding:16px;display:flex;flex-direction:column;gap:20px}
-.tcard{background:rgba(255,255,255,.95);border-radius:24px;padding:20px;box-shadow:0 6px 0 rgba(0,0,0,.2),0 2px 24px rgba(0,0,0,.15);border:3px solid rgba(255,255,255,.9);position:relative;overflow:hidden}
-.tcard::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;border-radius:24px 24px 0 0}
-.tcard.gold::before{background:var(--gold)}.tcard.blue::before{background:var(--blue)}.tcard.silver::before{background:var(--silver)}
-.tc-title{font-family:'Fredoka One',cursive;font-size:20px;color:var(--navy);margin-bottom:4px}
-.hint{font-size:13px;font-weight:700;color:#555;margin-bottom:14px;line-height:1.5}
-.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.leg-item{display:flex;align-items:center;gap:6px;background:var(--sky);border-radius:10px;padding:6px 12px;border:2px solid var(--silver)}
-.leg-text{font-size:12px;font-weight:800;color:var(--navy)}
-.leg-sw{border-radius:3px}
-.controls-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.ctrl-box{border-radius:16px;padding:12px;text-align:center;border:2.5px solid transparent}
-.ctrl-box.h{background:#D4F5D4;border-color:#6EE7B7}.ctrl-box.t{background:#FEF3C7;border-color:#FDE68A}.ctrl-box.o{background:#E0CCFF;border-color:#C4B5FD}
-.ctrl-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.ctrl-lbl.h{color:#065F46}.ctrl-lbl.t{color:#92400E}.ctrl-lbl.o{color:#4C1D95}
+:root{
+  --accent:#2563EB;--accent-light:#EFF6FF;--accent-mid:#BFDBFE;
+  --accent-dark:#1D4ED8;--bg:#F7F8FA;--surface:#FFFFFF;
+  --ink:#1C2B2B;--ink2:#4B6060;--border:#E4EAE9;
+  --success:#16A34A;--success-bg:#DCFCE7;
+  --error:#DC2626;--error-bg:#FEE2E2;
+  --hundreds:#16A34A;--tens:#D97706;--ones:#7C3AED;
+}
+html,body{width:100%;min-height:100vh;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+.header{width:100%;background:var(--surface);border-bottom:2px solid var(--border);padding:16px 20px 0;display:flex;flex-direction:column;align-items:center;position:sticky;top:0;z-index:100}
+.header-row{width:100%;max-width:640px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.chapter-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-light);padding:4px 12px;border-radius:20px}
+.header-title{font-size:20px;font-weight:900;color:var(--ink)}
+.tabs{display:flex;gap:4px;width:100%;max-width:640px}
+.tab{flex:1;padding:10px 0;text-align:center;font-size:14px;font-weight:800;cursor:pointer;border-bottom:3px solid transparent;color:var(--ink2);transition:all .2s;border-radius:8px 8px 0 0}
+.tab:hover{color:var(--accent);background:var(--accent-light)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.page{width:100%;max-width:640px;margin:0 auto;padding:24px 16px 40px;display:flex;flex-direction:column;gap:20px}
+.panel{display:none}.panel.active{display:flex;flex-direction:column;gap:20px}
+
+.card{background:var(--surface);border-radius:16px;padding:22px;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative}
+.card-accent{position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:16px 0 0 16px}
+.card-accent.blue{background:var(--accent)}
+.card-accent.green{background:#16A34A}
+.card-title{font-size:17px;font-weight:900;color:var(--ink);margin-bottom:4px;padding-left:12px}
+.card-sub{font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:18px;padding-left:12px;line-height:1.5}
+
+/* ── BLOCK BUILDER ── */
+.legend-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:5px 10px;border:1.5px solid var(--border)}
+.leg-swatch{border-radius:2px}
+.leg-text{font-size:11px;font-weight:800;color:var(--ink2)}
+
+.hto-controls{display:flex;gap:10px;margin-bottom:16px}
+.hto-box{flex:1;background:var(--bg);border-radius:12px;padding:12px 10px;text-align:center;border:1.5px solid var(--border)}
+.hto-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.hto-label.h{color:var(--hundreds)}.hto-label.t{color:var(--tens)}.hto-label.o{color:var(--ones)}
 .stepper{display:flex;align-items:center;justify-content:center;gap:8px}
-.sbtn{width:36px;height:36px;border-radius:50%;border:none;font-size:18px;font-weight:900;cursor:pointer;color:#fff;transition:transform .1s;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.12)}
-.sbtn:active{transform:scale(.88)}
-.sbtn.h{background:#16A34A}.sbtn.t{background:#D97706}.sbtn.o{background:#7C3AED}
-.sval{font-family:'Fredoka One',cursive;font-size:28px;min-width:32px;text-align:center}
-.sval.h{color:#065F46}.sval.t{color:#92400E}.sval.o{color:#4C1D95}
-.block-canvas{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;background:var(--sky);border-radius:14px;padding:12px;min-height:80px;border:2.5px solid var(--silver);margin-bottom:14px}
-.flat{display:grid;grid-template-columns:repeat(10,9px);gap:1px}.flat-cell{width:9px;height:9px;background:#16A34A;border-radius:1px}
-.rod{display:flex;flex-direction:column;gap:1px}.rod-cell{width:11px;height:11px;background:#D97706;border-radius:2px}
-.unit-cluster{display:flex;flex-wrap:wrap;gap:2px;max-width:66px;align-self:flex-end}.unit-cell{width:11px;height:11px;background:#7C3AED;border-radius:2px}
-.v-sep{width:2px;background:rgba(0,0,0,.08);align-self:stretch;margin:0 4px;border-radius:1px}
-.num-display{text-align:center;margin-bottom:12px}
-.big-num{font-family:'Fredoka One',cursive;font-size:88px;color:var(--navy);line-height:1}
-.num-breakdown{font-size:15px;font-weight:700;color:#666;margin-top:4px}
-.pv-cards{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;margin-top:10px}
-.pvc{border-radius:14px;padding:10px 14px;text-align:center;min-width:72px}
-.pvc.h{background:#D4F5D4;border:2.5px solid #6EE7B7}.pvc.t{background:#FEF3C7;border:2.5px solid #FDE68A}.pvc.o{background:#E0CCFF;border:2.5px solid #C4B5FD}.pvc.tot{background:var(--sky);border:2.5px solid var(--blue);min-width:90px}
-.pvc-num{font-family:'Fredoka One',cursive;font-size:30px}
-.pvc-num.h{color:#065F46}.pvc-num.t{color:#92400E}.pvc-num.o{color:#4C1D95}.pvc-num.tot{color:var(--navy)}
-.pvc-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#999}
-.eq-s{font-family:'Fredoka One',cursive;font-size:22px;color:#CCC;align-self:center}
-.chal-box{background:var(--sky);border-radius:14px;padding:14px;border:2.5px dashed var(--blue);margin-top:14px}
-.chal-q{font-family:'Fredoka One',cursive;font-size:16px;color:var(--navy);margin-bottom:8px}
-.type-inp{font-family:'Fredoka One',cursive;font-size:26px;width:100px;height:52px;border-radius:12px;border:3px solid var(--silver);text-align:center;color:var(--navy);outline:none;transition:border-color .15s;background:var(--cream);-moz-appearance:textfield}
-.type-inp::-webkit-outer-spin-button,.type-inp::-webkit-inner-spin-button{-webkit-appearance:none}
-.type-inp:focus{border-color:var(--blue)}
-.check-btn{background:linear-gradient(135deg,var(--blue),#0A2E8A);color:#fff;border:none;border-radius:12px;padding:11px 22px;font-family:'Fredoka One',cursive;font-size:15px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s;margin-left:8px}
-.check-btn:hover{transform:scale(1.06)}
-.chal-fb{font-family:'Fredoka One',cursive;font-size:15px;min-height:22px;margin-top:8px;text-align:center}
-.quiz-blocks{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end;background:var(--sky);border-radius:12px;padding:10px;min-height:50px;border:2.5px dashed var(--silver);margin-bottom:12px}
-.opts{display:flex;gap:8px;flex-wrap:wrap}
-.opt{font-family:'Fredoka One',cursive;font-size:20px;min-width:80px;height:52px;border-radius:12px;border:3px solid var(--silver);background:#fff;cursor:pointer;color:var(--navy);transition:all .14s;padding:0 10px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
-.opt:hover{border-color:var(--blue);transform:scale(1.06);background:var(--sky)}
-.opt.correct{background:#D4F5D4;border-color:#16A34A;color:#065F46}
-.opt.wrong{background:#FFE0E0;border-color:#FF6B6B;color:#C92A2A}
-.quiz-fb{font-family:'Fredoka One',cursive;font-size:17px;min-height:22px;margin-top:10px;text-align:center}
-.next-btn{margin-top:12px;background:linear-gradient(135deg,var(--blue),#0A2E8A);color:#fff;border:none;border-radius:16px;padding:12px 28px;font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s}
-.next-btn:hover{transform:scale(1.06)}
+.stbtn{width:32px;height:32px;border-radius:50%;border:none;font-size:18px;font-weight:900;cursor:pointer;color:#fff;transition:all .12s;display:flex;align-items:center;justify-content:center}
+.stbtn:active{transform:scale(.88)}
+.stbtn.h{background:var(--hundreds)}.stbtn.t{background:var(--tens)}.stbtn.o{background:var(--ones)}
+.stval{font-size:28px;font-weight:900;min-width:28px;text-align:center}
+.stval.h{color:var(--hundreds)}.stval.t{color:var(--tens)}.stval.o{color:var(--ones)}
+
+.block-canvas{background:var(--bg);border-radius:12px;border:1.5px solid var(--border);padding:14px;min-height:80px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:14px}
+.flat{display:grid;grid-template-columns:repeat(10,8px);gap:1px}
+.flat-cell{width:8px;height:8px;background:var(--hundreds);border-radius:1px;opacity:.85}
+.rod{display:flex;flex-direction:column;gap:1px}
+.rod-cell{width:10px;height:10px;background:var(--tens);border-radius:1px;opacity:.85}
+.unit-row{display:flex;flex-wrap:wrap;gap:2px;max-width:58px;align-self:flex-end}
+.unit-cell{width:10px;height:10px;background:var(--ones);border-radius:1px;opacity:.85}
+.vdiv{width:1px;background:var(--border);align-self:stretch;margin:0 2px}
+
+.num-display{text-align:center;margin-bottom:14px}
+.big-num{font-size:80px;font-weight:900;color:var(--ink);line-height:1}
+.num-breakdown{font-size:14px;font-weight:700;color:var(--ink2);margin-top:4px}
+
+.result-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.result-chip{border-radius:10px;padding:8px 14px;text-align:center;min-width:64px}
+.result-chip.h{background:#DCFCE7;border:1.5px solid #86EFAC}
+.result-chip.t{background:#FEF3C7;border:1.5px solid #FDE68A}
+.result-chip.o{background:#EDE9FE;border:1.5px solid #C4B5FD}
+.result-chip.tot{background:var(--ink);border:1.5px solid var(--ink)}
+.rc-num{font-size:26px;font-weight:900}
+.rc-num.h{color:var(--hundreds)}.rc-num.t{color:var(--tens)}.rc-num.o{color:var(--ones)}.rc-num.tot{color:#fff}
+.rc-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-top:2px}
+.rc-lbl.tot{color:rgba(255,255,255,.7)}
+.eq-sym{font-size:20px;font-weight:900;color:var(--border)}
+
+/* challenge box */
+.challenge-box{background:var(--accent-light);border:1.5px solid var(--accent-mid);border-radius:12px;padding:14px 16px;margin-top:4px}
+.challenge-q{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:10px}
+.chal-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chal-inp{font-size:26px;font-weight:900;width:100px;height:52px;border-radius:12px;border:2px solid var(--accent-mid);text-align:center;color:var(--accent-dark);outline:none;transition:border-color .15s;background:var(--surface);-moz-appearance:textfield}
+.chal-inp::-webkit-outer-spin-button,.chal-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.chal-inp:focus{border-color:var(--accent)}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:15px;font-weight:800;cursor:pointer;transition:all .18s}
+.check-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.new-chal-btn{background:var(--surface);border:2px solid var(--border);color:var(--ink2);font-size:13px;font-weight:800;padding:10px 16px;border-radius:10px;cursor:pointer;transition:all .15s}
+.new-chal-btn:hover{border-color:var(--accent);color:var(--accent)}
+.chal-fb{font-size:14px;font-weight:800;min-height:20px;margin-top:8px;text-align:center}
+
+/* ── PRACTICE ── */
+.score-bar{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 14px;border:1.5px solid var(--border)}
+.score-label{font-size:12px;font-weight:800;color:var(--ink2);flex:1}
+.score-nums{font-size:14px;font-weight:900;color:var(--accent)}
+
+.quiz-blocks{background:var(--bg);border-radius:12px;border:1.5px dashed var(--border);padding:12px;min-height:60px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:16px}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.opt{font-size:20px;font-weight:900;min-width:76px;height:52px;border-radius:12px;border:2px solid var(--border);background:var(--surface);cursor:pointer;color:var(--ink);transition:all .14px;padding:0 12px}
+.opt:hover{border-color:var(--accent);background:var(--accent-light);transform:translateY(-2px)}
+.opt.correct{background:var(--success-bg);border-color:var(--success);color:var(--success)}
+.opt.wrong{background:var(--error-bg);border-color:var(--error);color:var(--error)}
+.quiz-fb{font-size:15px;font-weight:800;min-height:22px;margin-top:12px;text-align:center}
+.next-btn{margin-top:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 26px;font-size:15px;font-weight:800;cursor:pointer;transition:all .18s;align-self:flex-start}
+.next-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
 </style>
 </head>
 <body>
-<div class="star-header">
-  <script>for(let i=0;i<25;i++){document.write(`<div class="star" style="width:${1+Math.random()*3}px;height:${1+Math.random()*3}px;top:${Math.random()*100}%;left:${Math.random()*100}%;opacity:${.3+Math.random()*.7}"></div>`)}</script>
-  <div class="sh-title">🏗️ Numbers up to 1000</div>
-  <div class="sh-chip">Chapter 5</div>
+
+<div class="header">
+  <div class="header-row">
+    <span class="chapter-label">Chapter 5</span>
+    <span class="header-title">Numbers up to 1000</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('learn')">Learn</div>
+    <div class="tab" onclick="switchTab('practice')">Practice</div>
+  </div>
 </div>
+
 <div class="page">
-  <div class="tcard gold">
-    <div class="tc-title">🟩 Build a 3-digit number with blocks!</div>
-    <div class="hint">Each green flat = 100, each yellow rod = 10, each purple cube = 1. Press + and − to build!</div>
-    <div class="legend">
-      <div class="leg-item"><div class="leg-sw" style="width:18px;height:18px;background:#16A34A"></div><span class="leg-text">Green flat = 100</span></div>
-      <div class="leg-item"><div class="leg-sw" style="width:11px;height:22px;background:#D97706"></div><span class="leg-text">Yellow rod = 10</span></div>
-      <div class="leg-item"><div class="leg-sw" style="width:11px;height:11px;background:#7C3AED"></div><span class="leg-text">Purple cube = 1</span></div>
-    </div>
-    <div class="controls-row">
-      <div class="ctrl-box h"><div class="ctrl-lbl h">Hundreds</div><div class="stepper"><button class="sbtn h" onclick="ch('h',-1)">−</button><span class="sval h" id="hv">3</span><button class="sbtn h" onclick="ch('h',1)">+</button></div></div>
-      <div class="ctrl-box t"><div class="ctrl-lbl t">Tens</div><div class="stepper"><button class="sbtn t" onclick="ch('t',-1)">−</button><span class="sval t" id="tv">4</span><button class="sbtn t" onclick="ch('t',1)">+</button></div></div>
-      <div class="ctrl-box o"><div class="ctrl-lbl o">Ones</div><div class="stepper"><button class="sbtn o" onclick="ch('o',-1)">−</button><span class="sval o" id="ov">7</span><button class="sbtn o" onclick="ch('o',1)">+</button></div></div>
-    </div>
-    <div class="block-canvas" id="blockCanvas"></div>
-    <div class="num-display"><div class="big-num" id="bigNum">347</div><div class="num-breakdown" id="numBreak">300 + 40 + 7</div></div>
-    <div class="pv-cards" id="pvcRow"></div>
-    <div class="chal-box">
-      <div class="chal-q">Can you build the number <strong id="chalTarget">256</strong>? Do it, then type it!</div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <input type="number" class="type-inp" id="chalInput" min="0" max="999" placeholder="?">
-        <button class="check-btn" onclick="checkChallenge()">Check ✓</button>
-        <button style="background:#fff;border:2.5px solid var(--silver);color:var(--blue);font-family:'Fredoka One',cursive;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer" onclick="newChallenge()">New target ↻</button>
+
+  <!-- LEARN -->
+  <div class="panel active" id="panel-learn">
+    <div class="card">
+      <div class="card-accent blue"></div>
+      <div class="card-title">Build a 3-digit number with blocks</div>
+      <div class="card-sub">Use + and − to add or remove blocks. Watch the number change!</div>
+
+      <div class="legend-row">
+        <div class="leg"><div class="leg-swatch" style="width:16px;height:16px;background:var(--hundreds)"></div><span class="leg-text">Green flat = 100</span></div>
+        <div class="leg"><div class="leg-swatch" style="width:10px;height:20px;background:var(--tens)"></div><span class="leg-text">Orange rod = 10</span></div>
+        <div class="leg"><div class="leg-swatch" style="width:10px;height:10px;background:var(--ones)"></div><span class="leg-text">Purple cube = 1</span></div>
       </div>
-      <div class="chal-fb" id="chalFb"></div>
+
+      <div class="hto-controls">
+        <div class="hto-box">
+          <div class="hto-label h">Hundreds</div>
+          <div class="stepper">
+            <button class="stbtn h" onclick="ch('h',-1)">−</button>
+            <span class="stval h" id="hv">3</span>
+            <button class="stbtn h" onclick="ch('h',1)">+</button>
+          </div>
+        </div>
+        <div class="hto-box">
+          <div class="hto-label t">Tens</div>
+          <div class="stepper">
+            <button class="stbtn t" onclick="ch('t',-1)">−</button>
+            <span class="stval t" id="tv">4</span>
+            <button class="stbtn t" onclick="ch('t',1)">+</button>
+          </div>
+        </div>
+        <div class="hto-box">
+          <div class="hto-label o">Ones</div>
+          <div class="stepper">
+            <button class="stbtn o" onclick="ch('o',-1)">−</button>
+            <span class="stval o" id="ov">7</span>
+            <button class="stbtn o" onclick="ch('o',1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-canvas" id="blockCanvas"></div>
+
+      <div class="num-display">
+        <div class="big-num" id="bigNum">347</div>
+        <div class="num-breakdown" id="numBreak">300 + 40 + 7</div>
+      </div>
+
+      <div class="result-row" id="resultRow"></div>
+
+      <div class="challenge-box">
+        <div class="challenge-q">Can you build <strong id="chalTarget">256</strong>? Adjust the blocks above, then press Check.</div>
+        <div class="chal-row">
+          <button class="check-btn" onclick="checkChallenge()">Check ✓</button>
+          <button class="new-chal-btn" onclick="newChallenge()">New target ↻</button>
+        </div>
+        <div class="chal-fb" id="chalFb"></div>
+      </div>
     </div>
   </div>
-  <div class="tcard blue">
-    <div class="tc-title">🔢 What number do these blocks show?</div>
-    <div class="hint">Count the flats (×100), rods (×10), and cubes (×1). Pick the right number!</div>
-    <div class="quiz-blocks" id="quizBlocks"></div>
-    <div style="font-family:'Fredoka One',cursive;font-size:14px;color:#555;margin-bottom:8px" id="qHint"></div>
-    <div class="opts" id="quizOpts"></div>
-    <div class="quiz-fb" id="quizFb"></div>
-    <button class="next-btn" onclick="newQuiz()">Next question ➡️</button>
+
+  <!-- PRACTICE -->
+  <div class="panel" id="panel-practice">
+    <div class="score-bar">
+      <span class="score-label">Questions answered</span>
+      <span class="score-nums" id="scoreDisplay">0 correct / 0 total</span>
+    </div>
+    <div class="card">
+      <div class="card-accent green"></div>
+      <div class="card-title">What number do these blocks show?</div>
+      <div class="card-sub">Count the green flats (×100), orange rods (×10), and purple cubes (×1). Pick the right number.</div>
+      <div class="quiz-blocks" id="quizBlocks"></div>
+      <div style="font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:12px" id="qHint"></div>
+      <div class="opts" id="quizOpts"></div>
+      <div class="quiz-fb" id="quizFb"></div>
+      <button class="next-btn" onclick="newQuiz()">Next question →</button>
+    </div>
   </div>
+
 </div>
+
 <script>
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['learn','practice'][i]===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+/* ── BLOCK BUILDER ── */
 let bh=3,bt=4,bo=7;
+
 function makeFlat(){const d=document.createElement('div');d.className='flat';for(let i=0;i<100;i++){const c=document.createElement('div');c.className='flat-cell';d.appendChild(c);}return d;}
 function makeRod(){const d=document.createElement('div');d.className='rod';for(let i=0;i<10;i++){const c=document.createElement('div');c.className='rod-cell';d.appendChild(c);}return d;}
-function makeUnits(n){const d=document.createElement('div');d.className='unit-cluster';for(let i=0;i<n;i++){const c=document.createElement('div');c.className='unit-cell';d.appendChild(c);}return d;}
-function makeSep(){const d=document.createElement('div');d.className='v-sep';return d;}
+function makeUnits(n){const d=document.createElement('div');d.className='unit-row';for(let i=0;i<n;i++){const c=document.createElement('div');c.className='unit-cell';d.appendChild(c);}return d;}
+function makeDivider(){const d=document.createElement('div');d.className='vdiv';return d;}
+
 function render(){
-  document.getElementById('hv').textContent=bh;document.getElementById('tv').textContent=bt;document.getElementById('ov').textContent=bo;
   const cv=document.getElementById('blockCanvas');cv.innerHTML='';
-  for(let i=0;i<bh;i++)cv.appendChild(makeFlat());if(bh&&(bt||bo))cv.appendChild(makeSep());for(let i=0;i<bt;i++)cv.appendChild(makeRod());if(bt&&bo)cv.appendChild(makeSep());if(bo)cv.appendChild(makeUnits(bo));
-  const tot=bh*100+bt*10+bo;document.getElementById('bigNum').textContent=tot;
+  for(let i=0;i<bh;i++)cv.appendChild(makeFlat());
+  if(bh&&(bt||bo))cv.appendChild(makeDivider());
+  for(let i=0;i<bt;i++)cv.appendChild(makeRod());
+  if(bt&&bo)cv.appendChild(makeDivider());
+  if(bo)cv.appendChild(makeUnits(bo));
+  const tot=bh*100+bt*10+bo;
+  document.getElementById('hv').textContent=bh;
+  document.getElementById('tv').textContent=bt;
+  document.getElementById('ov').textContent=bo;
+  document.getElementById('bigNum').textContent=tot;
   const parts=[];if(bh)parts.push(bh*100);if(bt)parts.push(bt*10);if(bo)parts.push(bo);
   document.getElementById('numBreak').textContent=parts.length?parts.join(' + ')+' = '+tot:'0';
-  document.getElementById('pvcRow').innerHTML=`<div class="pvc h"><div class="pvc-lbl">Hundreds</div><div class="pvc-num h">${bh}</div></div><div class="eq-s">+</div><div class="pvc t"><div class="pvc-lbl">Tens</div><div class="pvc-num t">${bt}</div></div><div class="eq-s">+</div><div class="pvc o"><div class="pvc-lbl">Ones</div><div class="pvc-num o">${bo}</div></div><div class="eq-s">=</div><div class="pvc tot"><div class="pvc-lbl">Number</div><div class="pvc-num tot">${tot}</div></div>`;
+  document.getElementById('resultRow').innerHTML=`
+    <div class="result-chip h"><div class="rc-num h">${bh}</div><div class="rc-lbl">Hundreds</div></div>
+    <span class="eq-sym">+</span>
+    <div class="result-chip t"><div class="rc-num t">${bt}</div><div class="rc-lbl">Tens</div></div>
+    <span class="eq-sym">+</span>
+    <div class="result-chip o"><div class="rc-num o">${bo}</div><div class="rc-lbl">Ones</div></div>
+    <span class="eq-sym">=</span>
+    <div class="result-chip tot"><div class="rc-num tot">${tot}</div><div class="rc-lbl tot">Total</div></div>`;
 }
-function ch(p,d){if(p==='h')bh=Math.max(0,Math.min(9,bh+d));else if(p==='t')bt=Math.max(0,Math.min(9,bt+d));else bo=Math.max(0,Math.min(9,bo+d));render();}
+function ch(p,d){
+  if(p==='h')bh=Math.max(0,Math.min(9,bh+d));
+  else if(p==='t')bt=Math.max(0,Math.min(9,bt+d));
+  else bo=Math.max(0,Math.min(9,bo+d));
+  render();
+}
 render();
+
 let chalTarget=256;
-function newChallenge(){chalTarget=Math.floor(Math.random()*899)+101;document.getElementById('chalTarget').textContent=chalTarget;document.getElementById('chalInput').value='';document.getElementById('chalFb').textContent='';}
-function checkChallenge(){const val=parseInt(document.getElementById('chalInput').value);const built=bh*100+bt*10+bo;const fb=document.getElementById('chalFb');if(val===chalTarget&&built===chalTarget){fb.textContent='🎉 Perfect! You built '+chalTarget+'! ⭐';fb.style.color='#16A34A';}else if(built===chalTarget){fb.textContent='Blocks are right! But check your typed number.';fb.style.color='#D97706';}else{fb.textContent='Your blocks show '+built+' but the target is '+chalTarget+'. Adjust the blocks!';fb.style.color='#E03131';}}
+function newChallenge(){
+  chalTarget=Math.floor(Math.random()*899)+101;
+  document.getElementById('chalTarget').textContent=chalTarget;
+  document.getElementById('chalFb').textContent='';
+}
+function checkChallenge(){
+  const built=bh*100+bt*10+bo;
+  const fb=document.getElementById('chalFb');
+  if(built===chalTarget){fb.textContent='Yes! Your blocks show '+chalTarget+'.';fb.style.color='var(--success)';}
+  else{fb.textContent='Your blocks show '+built+'. The target is '+chalTarget+'. Adjust the blocks.';fb.style.color='var(--error)';}
+}
 newChallenge();
-const CFGS=[{h:1,t:0,o:0},{h:2,t:3,o:0},{h:4,t:0,o:5},{h:1,t:7,o:2},{h:5,t:5,o:5},{h:3,t:0,o:0},{h:6,t:2,o:4},{h:1,t:0,o:9},{h:7,t:7,o:7},{h:2,t:5,o:0}];
+
+/* ── QUIZ ── */
+let correct=0,total=0;
+const CFGS=[{h:1,t:0,o:0},{h:2,t:3,o:0},{h:4,t:0,o:5},{h:1,t:7,o:2},{h:5,t:5,o:5},{h:3,t:0,o:0},{h:6,t:2,o:4},{h:1,t:0,o:9},{h:7,t:7,o:7},{h:2,t:5,o:0},{h:3,t:2,o:8},{h:9,t:0,o:1}];
 let qAns=0;
+
+function updateScore(){document.getElementById('scoreDisplay').textContent=correct+' correct / '+total+' total';}
+
 function newQuiz(){
-  const cfg=CFGS[Math.floor(Math.random()*CFGS.length)];qAns=cfg.h*100+cfg.t*10+cfg.o;document.getElementById('quizFb').textContent='';document.getElementById('qHint').textContent=`Count: ${cfg.h} flat(s)=${cfg.h*100}, ${cfg.t} rod(s)=${cfg.t*10}, ${cfg.o} cube(s)=${cfg.o}`;
-  const qb=document.getElementById('quizBlocks');qb.innerHTML='';for(let i=0;i<cfg.h;i++)qb.appendChild(makeFlat());if(cfg.h&&(cfg.t||cfg.o))qb.appendChild(makeSep());for(let i=0;i<cfg.t;i++)qb.appendChild(makeRod());if(cfg.o)qb.appendChild(makeUnits(cfg.o));
-  const pool=new Set([qAns]);const offs=[-100,-10,-1,1,10,100].sort(()=>Math.random()-.5);for(const off of offs){if(pool.size>=4)break;const w=qAns+off;if(w>0&&w<=999)pool.add(w);}while(pool.size<4){pool.add(Math.floor(Math.random()*900)+100);}
-  const opts=document.getElementById('quizOpts');opts.innerHTML='';[...pool].sort(()=>Math.random()-.5).forEach(n=>{const b=document.createElement('button');b.className='opt';b.textContent=n;b.onclick=()=>{document.querySelectorAll('#quizOpts .opt').forEach(x=>x.onclick=null);const fb=document.getElementById('quizFb');if(n===qAns){b.classList.add('correct');fb.textContent='🎉 Yes! That is '+qAns+'! ⭐';fb.style.color='#16A34A';}else{b.classList.add('wrong');fb.textContent='Count again! Flats×100 + Rods×10 + Cubes×1. Answer: '+qAns;fb.style.color='#E03131';document.querySelectorAll('#quizOpts .opt').forEach(x=>{if(parseInt(x.textContent)===qAns)x.classList.add('correct');});}};opts.appendChild(b);});
+  const cfg=CFGS[Math.floor(Math.random()*CFGS.length)];
+  qAns=cfg.h*100+cfg.t*10+cfg.o;
+  document.getElementById('quizFb').textContent='';
+  document.getElementById('qHint').textContent='Flats × 100 + Rods × 10 + Cubes × 1';
+  const qb=document.getElementById('quizBlocks');qb.innerHTML='';
+  for(let i=0;i<cfg.h;i++)qb.appendChild(makeFlat());
+  if(cfg.h&&(cfg.t||cfg.o))qb.appendChild(makeDivider());
+  for(let i=0;i<cfg.t;i++)qb.appendChild(makeRod());
+  if(cfg.o)qb.appendChild(makeUnits(cfg.o));
+  const pool=new Set([qAns]);
+  const offs=[-100,-10,-1,1,10,100].sort(()=>Math.random()-.5);
+  for(const off of offs){if(pool.size>=4)break;const w=qAns+off;if(w>0&&w<=999)pool.add(w);}
+  while(pool.size<4)pool.add(Math.floor(Math.random()*900)+100);
+  const opts=document.getElementById('quizOpts');opts.innerHTML='';
+  [...pool].sort(()=>Math.random()-.5).forEach(n=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=n;
+    b.onclick=()=>{
+      document.querySelectorAll('.opt').forEach(x=>x.onclick=null);
+      total++;const fb=document.getElementById('quizFb');
+      if(n===qAns){correct++;b.classList.add('correct');fb.textContent='Correct! That is '+qAns+'.';fb.style.color='var(--success)';}
+      else{b.classList.add('wrong');fb.textContent='Count again — flats × 100 + rods × 10 + cubes × 1. The answer is '+qAns+'.';fb.style.color='var(--error)';document.querySelectorAll('.opt').forEach(x=>{if(parseInt(x.textContent)===qAns)x.classList.add('correct');});}
+      updateScore();
+    };
+    opts.appendChild(b);
+  });
 }
 newQuiz();
 </script>
